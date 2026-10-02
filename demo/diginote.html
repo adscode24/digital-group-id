@@ -36,6 +36,11 @@ button:hover{background:#C2410C}
 .dock span{display:grid;gap:3px;text-align:center}
 .dock .on{color:#EA580C}
 .dock i{font-size:16px;font-style:normal}
+/* Hover animations untuk tombol */
+button,.mitem,.fab,.nav-g a,.opsb button,.tts,.speak,.del,.dock span,.navb span,.tabbar span{transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background .25s,color .25s,border-color .25s}
+button:hover,.mitem:hover,.fab:hover,.opsb button:hover,.tts:hover,.speak:hover,.del:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.dock span:hover,.navb span:hover,.tabbar span:hover,.nav-g a:hover{transform:translateY(-3px) scale(1.1)}
+.nav-g a:hover{background:rgba(255,255,255,.08)}
 </style>
 </head>
 <body>

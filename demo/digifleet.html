@@ -42,6 +42,11 @@ th{text-align:left;color:#64748b;padding:8px;border-bottom:2px solid #e2e8f0;fon
 .blive{display:inline-flex;align-items:center;gap:6px;background:#FEE2E2;color:#B91C1C;font-size:11px;font-weight:800;padding:4px 12px;border-radius:99px;margin-bottom:10px}
 .blive i{width:8px;height:8px;border-radius:50%;background:#DC2626;animation:bl 1.4s infinite}
 @media(max-width:900px){.app{grid-template-columns:1fr}.side{display:none}.stats{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+/* Hover animations untuk tombol */
+button,.mitem,.fab,.nav-g a,.opsb button,.tts,.speak,.del,.dock span,.navb span,.tabbar span{transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background .25s,color .25s,border-color .25s}
+button:hover,.mitem:hover,.fab:hover,.opsb button:hover,.tts:hover,.speak:hover,.del:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.dock span:hover,.navb span:hover,.tabbar span:hover,.nav-g a:hover{transform:translateY(-3px) scale(1.1)}
+.nav-g a:hover{background:rgba(255,255,255,.08)}
 </style>
 </head>
 <body>

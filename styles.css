@@ -157,3 +157,15 @@ footer p{margin-top:14px;font-size:14px;color:#64748B}
   .f1{right:0}.f3{left:0}
   .hero{padding-top:40px}
 }
+
+/* Hover animations untuk tombol di semua halaman */
+.btn,.link,.hamburger,.to-top{transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background .25s,color .25s,opacity .25s}
+.btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 30px rgba(11,18,32,.22)}
+.link:hover{transform:translateX(4px)}
+.nav-links a{transition:color .2s,transform .2s}
+.nav-links a:hover{transform:translateY(-2px)}
+.feature:hover,.product:hover,.step:hover{transition:transform .3s,box-shadow .3s}
+.feature:hover .icon,.product:hover .p-icon{transform:scale(1.15) rotate(-6deg);transition:transform .3s}
+.feature .icon,.product .p-icon{transition:transform .3s}
+.star-save,.pill:hover{transform:scale(1.05)}
+
