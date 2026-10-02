@@ -3,74 +3,117 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demo DigiLearn — Digital Group ID</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:linear-gradient(180deg,#FFF7ED,#FDF4FF);color:#0B1220;min-height:100vh}
-.top{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid #E6EAF0;padding:12px 20px;display:flex;gap:12px;align-items:center;z-index:10}
-.top a{color:#0EA5E9;font-weight:700;text-decoration:none}.pill{margin-left:auto;background:#F3E8FF;color:#7E22CE;font-size:12px;font-weight:800;padding:4px 12px;border-radius:99px}
-.wrap{max-width:640px;margin:0 auto;padding:28px 20px 60px;text-align:center}
-h1{font-family:'Plus Jakarta Sans';font-size:30px}.sub{color:#5B6472;margin:6px 0 18px}
-.hud{display:flex;gap:10px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
-.hud div{background:#fff;border:1px solid #E6EAF0;border-radius:12px;padding:8px 16px;font-weight:800;font-size:15px}
-.qcard{background:#fff;border:2px solid #E6EAF0;border-radius:22px;padding:32px 24px;box-shadow:0 14px 40px rgba(168,85,247,.12)}
-.qcard h2{font-size:44px;margin:10px 0;font-family:'Plus Jakarta Sans'}
-.qcard p{color:#5B6472;font-size:15px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.opts button{background:#F8FAFC;border:2px solid #E6EAF0;border-radius:14px;padding:16px;font-size:22px;font-weight:800;cursor:pointer;transition:.2s}
-.opts button:hover{border-color:#A855F7;transform:scale(1.03)}
-.speak{background:#F3E8FF;border:0;border-radius:99px;padding:10px 20px;font-weight:700;cursor:pointer;font-size:14px;margin-top:6px}
-.bar{height:10px;background:#F1F5F9;border-radius:99px;overflow:hidden;margin:0 0 16px}.bar span{display:block;height:100%;background:linear-gradient(90deg,#A855F7,#EC4899);transition:.4s}
-.result{font-size:20px;font-weight:800;margin-top:14px;min-height:30px}
-.note{margin-top:20px;font-size:12px;color:#94A3B8}
-.confetti{font-size:40px;animation:pop .5s ease}
-@keyframes pop{0%{transform:scale(.4)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
-.start{background:#0B1220;color:#fff;border:0;border-radius:14px;padding:14px 32px;font-weight:800;font-size:16px;cursor:pointer}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Quicksand',system-ui,sans-serif;background:linear-gradient(180deg,#FEF3C7,#FFF7ED);color:#334155;min-height:100vh}
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid #FDE68A;padding:10px 18px;display:flex;gap:10px;align-items:center;font-size:14px}
+.top a{color:#EA580C;font-weight:800;text-decoration:none}.pill{margin-left:auto;background:#F3E8FF;color:#7E22CE;font-size:11px;font-weight:800;padding:4px 12px;border-radius:99px}
+.phone{max-width:420px;margin:22px auto;border-radius:36px;overflow:hidden;box-shadow:0 30px 80px rgba(234,88,12,.25);background:linear-gradient(180deg,#FEF3C7,#FFF7ED)}
+.cnt{padding:18px 14px 110px}
+.userrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.userrow .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#F59E0B,#F97316);display:grid;place-items:center;color:#fff;font-size:20px}
+.userrow b{font-family:'Fredoka';font-size:16px;display:block}
+.userrow small{background:#FEF3C7;border:1px solid #FDE68A;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:800;color:#B45309}
+.pill2{margin-left:auto;background:#fff;border:1px solid #FDE68A;border-radius:99px;padding:4px 12px;font-weight:800;font-size:13px}
+.hero{background:linear-gradient(135deg,#F59E0B,#F97316 60%,#F43F5E);border-radius:26px;padding:18px;color:#fff;margin-bottom:14px}
+.hero h2{font-family:'Fredoka';font-size:20px;margin-bottom:6px}
+.hero button{width:100%;background:#fff;color:#EA580C;border:0;border-radius:99px;padding:12px;font-weight:800;font-size:14px;box-shadow:0 6px 0 rgba(0,0,0,.1)}
+.title{font-family:'Fredoka';font-size:15px;margin:6px 0 10px;color:#334155}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mitem{background:#fff;border:2px solid #FDE68A;border-radius:20px;padding:16px;text-align:left;box-shadow:0 6px 0 rgba(0,0,0,.05);cursor:pointer}
+.mitem .ic{font-size:26px;margin-bottom:6px}
+.mitem b{font-family:'Fredoka';font-size:14px;display:block}
+.mitem p{font-size:11px;color:#64748B;margin:4px 0 8px}
+.mitem span{font-size:11px;font-weight:800;color:#EA580C}
+.navb{position:sticky;bottom:12px;margin:0 20px;background:rgba(255,255,255,.95);border:1px solid #FDE68A;border-radius:99px;padding:10px 4px;display:flex;justify-content:space-around;box-shadow:0 12px 30px rgba(0,0,0,.08);font-size:9px;font-weight:800;color:#94A3B8;text-align:center}
+.navb i{font-size:18px;display:block;font-style:normal}.navb .on{color:#EA580C}
+/* quiz */
+#quiz{display:none;position:fixed;inset:0;z-index:60;background:linear-gradient(180deg,#FEF3C7,#FFF7ED);overflow:auto}
+#quiz .card{max-width:420px;margin:24px auto;background:#fff;border:3px solid #FDE68A;border-radius:26px;padding:22px;text-align:center;box-shadow:0 14px 40px rgba(234,88,12,.15)}
+#quiz h2{font-family:'Fredoka';font-size:30px;margin:10px 0}
+.opsb{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.opsb button{background:#F8FAFC;border:3px solid #E2E8F0;border-radius:16px;padding:14px;font-size:18px;font-weight:800;cursor:pointer;font-family:'Fredoka'}
+.opsb button:hover{border-color:#F59E0B;transform:scale(1.03)}
+.tts{background:#F3E8FF;border:0;border-radius:99px;padding:10px 22px;font-weight:800;cursor:pointer;font-size:14px;color:#7E22CE}
+.prog{display:flex;gap:5px;margin:8px 0}
+.prog i{flex:1;height:9px;border-radius:99px;background:#F1F5F9}
+.prog i.on{background:#F59E0B}
+.res{margin-top:10px;font-weight:800;font-size:15px;min-height:22px}
+.badge{font-size:11px;font-weight:800;background:#DCFCE7;color:#15803D;padding:3px 10px;border-radius:99px}
+.confetti{font-size:48px;animation:pop .5s}
+@keyframes pop{0%{transform:scale(.3)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
-<div class="top"><a href="../index.html">← Digital Group ID</a><b>🎓 DigiLearn</b><span class="pill">LIVE DEMO</span></div>
-<div class="wrap">
-<h1>Demo DigiLearn</h1>
-<p class="sub">Kuis belajar anak — jawab 5 soal, kumpulkan ⭐ & 🪙. Tombol 🔊 membacakan soal (seperti fitur TTS di aplikasi asli).</p>
-<div class="hud"><div>⭐ <span id="stars">0</span></div><div>🪙 <span id="coins">0</span></div><div>Soal <span id="pos">1</span>/5</div></div>
-<div class="bar"><span id="prog" style="width:20%"></span></div>
-<div class="qcard" id="qc">
-<p>Pilih nama kamu lalu mulai!</p>
-<input id="nama" placeholder="Nama..." style="border:2px solid #E6EAF0;border-radius:12px;padding:12px;font-size:16px;width:70%;text-align:center;margin:12px 0">
-<br><button class="start" onclick="mulai()">🚀 Mulai Kuis</button>
+<div class="top"><a href="../index.html">← Digital Group ID</a><b>🎓 Demo DigiLearn</b><span class="pill">LIVE DEMO</span></div>
+<div class="phone">
+<div class="cnt">
+  <div class="userrow">
+    <div class="ava">🧒</div>
+    <div><b>Halo, Sinta! 👋</b><small>8 thn • Kelas 3</small></div>
+    <div class="pill2">⭐ <span id="stars">0</span></div>
+  </div>
+  <div class="hero">
+    <h2>Yuk Belajar Hari Ini! 📚</h2>
+    <p style="font-size:13px;opacity:.9;margin-bottom:12px">Kumpulkan ⭐ bintang & raih lencana!</p>
+    <button onclick="mulai()">Mulai Kuis Cerdas (Lvl 1)</button>
+  </div>
+  <p class="title">Pilih Menu Belajar:</p>
+  <div class="menu">
+    <button class="mitem" onclick="mulai()"><div class="ic">✍️</div><b>Menulis</b><p>Huruf besar, kecil, angka & kata bergambar</p><span>Buka Pelajaran →</span></button>
+    <button class="mitem" onclick="mulai()"><div class="ic">📖</div><b>Membaca</b><p>Suara perempuan jernih: kata & kalimat pendek</p><span>Buka Pelajaran →</span></button>
+    <button class="mitem" onclick="mulai()"><div class="ic">🧮</div><b>Matematika</b><p>Penjumlahan & pengurangan interaktif</p><span>Buka Pelajaran →</span></button>
+    <button class="mitem" onclick="mulai()"><div class="ic">🎯</div><b>Kuis 200 Lvl</b><p>10 soal/level & raih 3 bintang emas</p><span>Mulai Kuis →</span></button>
+  </div>
 </div>
-<div class="result" id="res"></div>
-<p class="note">Disederhanakan dari repo <b>adscode24/Pintarku</b> (React + TTS id-ID + kuis 200 level + modul menulis & matematika + game istirahat).</p>
+<div style="padding:0 14px 14px"><div class="navb">
+  <span class="on"><i>🏠</i>Beranda</span>
+  <span><i>✏️</i>Menulis</span>
+  <span><i>📖</i>Membaca</span>
+  <span><i>🧮</i>Math</span>
+  <span><i>🏆</i>Kuis</span>
+  <span><i>🎮</i>Istirahat</span>
+</div></div>
 </div>
+
+<div id="quiz" onclick="if(event.target.id==='quiz')this.style.display='none'">
+  <div class="card" id="qc"></div>
+</div>
+
 <script>
 const SOAL=[
- {q:'2 + 3 = ?',a:['4','5','6','7'],b:1,s:'Dua tambah tiga sama dengan berapa?'},
- {q:'5 − 2 = ?',a:['2','3','4','1'],b:1,s:'Lima kurang dua sama dengan berapa?'},
- {q:'Huruf pertama kata "Apel"?',a:['B','A','P','E'],b:1,s:'Huruf pertama kata Apel?'},
- {q:'4 + 4 = ?',a:['6','7','8','9'],b:2,s:'Empat tambah empat sama dengan berapa?'},
- {q:'Kata "Ibu" punya berapa huruf?',a:['2','3','4','5'],b:1,s:'Kata Ibu punya berapa huruf?'}];
+ {q:'2 + 3 = ?',a:['4','5','6','7'],b:1,s:'Dua tambah tiga sama dengan berapa?',e:'🍎🍎 + 🍎🍎🍎'},
+ {q:'5 − 2 = ?',a:['2','3','4','1'],b:1,s:'Lima kurang dua sama dengan berapa?',e:'🐶🐶🐶🐶🐶 − 🐶🐶'},
+ {q:'Huruf pertama kata "Apel"?',a:['B','A','P','E'],b:1,s:'Huruf pertama kata Apel',e:'🍎'},
+ {q:'4 + 4 = ?',a:['6','7','8','9'],b:2,s:'Empat tambah empat sama dengan berapa?',e:'🐟🐟🐟🐟 + 🐟🐟🐟🐟'},
+ {q:'Kata "Ibu" punya berapa huruf?',a:['2','3','4','5'],b:1,s:'Kata Ibu punya berapa huruf?',e:'👩'}];
 let i=0,stars=+(localStorage.getItem('dg_learn_stars')||0),coins=+(localStorage.getItem('dg_learn_coins')||0);
-starsEl();function starsEl(){document.getElementById('stars').textContent=stars;document.getElementById('coins').textContent=coins;}
+document.getElementById('stars').textContent=stars;
 function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';speechSynthesis.speak(u);}catch(e){}}
-function mulai(){i=0;tampil();}
+function mulai(){document.getElementById('quiz').style.display='block';i=0;tampil();}
 function tampil(){
- document.getElementById('pos').textContent=i+1;
- document.getElementById('prog').style.width=((i)/5*100)+'%';
- document.getElementById('res').textContent='';
- const s=SOAL[i];
- document.getElementById('qc').innerHTML=`<p>Soal ${i+1}</p><h2>${s.q}</h2><button class="speak" onclick='speak(${JSON.stringify(s.s)})'>🔊 Bacakan Soal</button><div class="opts">${s.a.map((o,x)=>`<button onclick="jawab(${x})">${o}</button>`).join('')}</div>`;
- speak(s.s);
+ const p=document.getElementById('prog');
+ document.getElementById('qc').innerHTML=`
+  <span class="badge">Menulis · Level 1</span>
+  <h2>Soal ${i+1} dari 5</h2>
+  <div class="prog" id="prog">${SOAL.map((s,x)=>`<i class="${x<=i?'on':''}"></i>`).join('')}</div>
+  <div style="font-size:46px;margin:6px 0">${SOAL[i].e}</div>
+  <h2 style="font-size:34px">${SOAL[i].q}</h2>
+  <button class="tts" onclick='speak(${JSON.stringify(SOAL[i].s)})'>🔊 Dengarkan Soal (Suara Guru)</button>
+  <div class="opsb">${SOAL[i].a.map((o,x)=>`<button onclick="jawab(${x})">${o}</button>`).join('')}</div>
+  <div class="res" id="res"></div>`;
+ speak(SOAL[i].s);
 }
 function jawab(x){
- const s=SOAL[i];
- if(x===s.b){stars++;coins+=10;document.getElementById('res').innerHTML='✅ Benar! +⭐ +10🪙';speak('Benar! Hebat sekali!');}
- else{document.getElementById('res').textContent='❌ Kurang tepat, coba soal berikutnya!';speak('Kurang tepat, semangat!');}
- localStorage.setItem('dg_learn_stars',stars);localStorage.setItem('dg_learn_coins',coins);starsEl();
+ const ok=x===SOAL[i].b;
+ document.getElementById('res').innerHTML=ok?'✅ Benar! +1 ⭐':'❌ Kurang tepat!';
+ if(ok){stars++;localStorage.setItem('dg_learn_stars',stars);document.getElementById('stars').textContent=stars;speak('Benar! Hebat!');}
+ else speak('Kurang tepat, semangat!');
  i++;
- if(i<SOAL.length){document.getElementById('prog').style.width=(i/5*100)+'%';setTimeout(tampil,1100);}
- else setTimeout(()=>{document.getElementById('prog').style.width='100%';document.getElementById('qc').innerHTML=`<div class="confetti">🎉</div><h2>Hebat!</h2><p>Kamu menyelesaikan 5 soal.<br>Raih ⭐ ${stars} & 🪙 ${coins}</p><br><button class="start" onclick="mulai()">🔁 Main Lagi</button>`;document.getElementById('res').textContent='';speak('Selamat! Kamu hebat!');},1100);
+ if(i<SOAL.length)setTimeout(tampil,1100);
+ else setTimeout(()=>{document.getElementById('qc').innerHTML=`<div class="confetti">🎉</div><h2>Lencana Baru!</h2><p style="margin:10px 0">Keren banget! Kamu menyelesaikan kuis Level 1.</p><p>⭐ ${stars}</p><br><button class="speak" onclick="mulai()" style="background:#F59E0B;color:#fff">🔁 Main Lagi</button> <button class="speak" onclick="document.getElementById('quiz').style.display='none'" style="background:#E2E8F0;color:#334155">Tutup</button>`;},1100);
 }
-starsEl();
 </script>
 </body>
 </html>
