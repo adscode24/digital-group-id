@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo DigiFleet — Digital Group ID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:#0B1220;color:#E2E8F0;min-height:100vh}
+.top{position:sticky;top:0;background:rgba(11,18,32,.9);backdrop-filter:blur(10px);border-bottom:1px solid #1E293B;padding:12px 20px;display:flex;gap:12px;align-items:center;z-index:10}
+.top a{color:#38BDF8;font-weight:700;text-decoration:none}.pill{margin-left:auto;background:#164E63;color:#67E8F9;font-size:12px;font-weight:800;padding:4px 12px;border-radius:99px;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.6}}
+.wrap{max-width:1020px;margin:0 auto;padding:28px 20px 60px}
+h1{font-family:'Plus Jakarta Sans';font-size:30px;color:#fff}.sub{color:#94A3B8;margin:6px 0 20px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.card{background:#111C33;border:1px solid #1E293B;border-radius:16px;padding:16px}
+.card small{color:#94A3B8;font-weight:700}.card strong{font-size:24px;display:block;margin-top:4px;color:#fff}
+.grid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.panel{background:#111C33;border:1px solid #1E293B;border-radius:16px;padding:20px}
+.panel h3{color:#fff;margin-bottom:12px;font-size:16px}
+#map{position:relative;height:340px;background:radial-gradient(circle at 30% 20%,#16294d,#0B1220 70%);border-radius:12px;overflow:hidden;border:1px solid #1E293B}
+.road{position:absolute;background:#1E293B;border-radius:99px}
+.unit{position:absolute;transform:translate(-50%,-50%);transition:left 1.8s linear,top 1.8s linear;text-align:center}
+.pin{width:34px;height:34px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center;font-size:15px;margin:0 auto;border:2px solid #fff}
+.pin span{transform:rotate(45deg)}
+.u-jalan .pin{background:#16A34A}.u-stop .pin{background:#F59E0B}.u-maintenance .pin{background:#DC2626}
+.unit small{background:rgba(0,0,0,.6);border-radius:6px;padding:1px 6px;font-size:10px;color:#fff;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:#94A3B8;padding:8px;border-bottom:1px solid #1E293B}td{padding:8px;border-bottom:1px solid #16213a}
+.st{font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px}
+.jalan{background:#14532D;color:#86EFAC}.stop{background:#78350F;color:#FCD34D}.maintenance{background:#7F1D1D;color:#FCA5A5}
+.filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filters button{width:auto;padding:8px 16px;font-size:13px;background:#1E293B;color:#E2E8F0;border-radius:99px}
+.filters button.on{background:#0EA5E9;color:#fff}
+.note{margin-top:16px;font-size:12px;color:#64748B}
+@media(max-width:760px){.cards{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><a href="../index.html">← Digital Group ID</a><b>🚚 DigiFleet</b><span class="pill">● LIVE TRACKING SIMULASI</span></div>
+<div class="wrap">
+<h1>Demo DigiFleet</h1>
+<p class="sub">Simulasi live GPS tracking armada — posisi unit bergerak otomatis tiap 2 detik (menggantikan feed GPS Firebase di aplikasi asli).</p>
+<div class="cards">
+<div class="card"><small>Unit Aktif</small><strong id="cAktif">—</strong></div>
+<div class="card"><small>Sedang Jalan</small><strong id="cJalan" style="color:#4ADE80">—</strong></div>
+<div class="card"><small>Trip Hari Ini</small><strong id="cTrip">—</strong></div>
+<div class="card"><small>Rata-rata Kecepatan</small><strong id="cSpd">—</strong></div>
+</div>
+<div class="grid">
+<div class="panel"><h3>🗺️ Peta Armada (simulasi)</h3><div id="map"></div></div>
+<div class="panel"><h3>Daftar Unit</h3>
+<div class="filters"><button class="on" onclick="filter('all',this)">Semua</button><button onclick="filter('jalan',this)">Jalan</button><button onclick="filter('stop',this)">Berhenti</button><button onclick="filter('maintenance',this)">Bengkel</button></div>
+<table><thead><tr><th>Unit</th><th>Driver</th><th>Kecepatan</th><th>Status</th></tr></thead><tbody id="tb"></tbody></table></div>
+</div>
+<p class="note">Disederhanakan dari repo <b>adscode24/DigiFleet</b> (React + Firebase + Leaflet + geofence + POD + maintenance + multi-tenant). Peta asli memakai Leaflet + GPS realtime.</p>
+</div>
+<script>
+let F='all';
+let units=[
+ {n:'B 9012 Truck',d:'Agus',x:20,y:30,spd:42,st:'jalan',e:'🚚'},
+ {n:'B 3456 Box',d:'Budi',x:65,y:20,spd:55,st:'jalan',e:'🚛'},
+ {n:'B 7890 Pickup',d:'Citra',x:45,y:65,spd:0,st:'stop',e:'🛻'},
+ {n:'B 1122 Tronton',d:'Dedi',x:80,y:70,spd:0,st:'maintenance',e:'🚚'},
+ {n:'B 3344 Van',d:'Eka',x:35,y:50,spd:28,st:'jalan',e:'🚐'},
+ {n:'B 5566 Box',d:'Fajar',x:55,y:40,spd:0,st:'stop',e:'🚛'}];
+const map=document.getElementById('map');
+map.innerHTML='<div class="road" style="left:0;right:0;top:48%;height:10px"></div><div class="road" style="top:0;bottom:0;left:38%;width:10px"></div><div class="road" style="top:0;bottom:0;left:72%;width:8px"></div>'+map.innerHTML;
+function draw(){
+ map.querySelectorAll('.unit').forEach(e=>e.remove());
+ units.filter(u=>F==='all'||u.st===F).forEach(u=>{
+  const d=document.createElement('div');d.className='unit u-'+u.st;d.style.left=u.x+'%';d.style.top=u.y+'%';
+  d.innerHTML=`<div class="pin"><span>${u.e}</span></div><small>${u.n}<br>${u.spd} km/h</small>`;map.appendChild(d);});
+ document.getElementById('tb').innerHTML=units.filter(u=>F==='all'||u.st===F).map(u=>`<tr><td>${u.e} ${u.n}<br><small style="color:#64748B">${u.d}</small></td><td>${u.d}</td><td>${u.spd} km/h</td><td><span class="st ${u.st}">${u.st.toUpperCase()}</span></td></tr>`).join('');
+ document.getElementById('cAktif').textContent=units.filter(u=>u.st!=='maintenance').length+' / '+units.length;
+ document.getElementById('cJalan').textContent=units.filter(u=>u.st==='jalan').length;
+ document.getElementById('cTrip').textContent=14+Math.floor(Math.random()*3);
+ const j=units.filter(u=>u.st==='jalan');
+ document.getElementById('cSpd').textContent=j.length?Math.round(j.reduce((a,b)=>a+b.spd,0)/j.length)+' km/h':'—';
+}
+function filter(f,btn){F=f;document.querySelectorAll('.filters button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');draw();}
+setInterval(()=>{units.forEach(u=>{if(u.st==='jalan'){u.x=Math.min(95,Math.max(5,u.x+(Math.random()*8-4)));u.y=Math.min(92,Math.max(8,u.y+(Math.random()*8-4)));u.spd=Math.max(15,Math.min(80,u.spd+Math.round(Math.random()*10-5)));}});draw();},2000);
+draw();
+</script>
+</body>
+</html>
