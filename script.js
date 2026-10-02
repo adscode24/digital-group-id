@@ -42,7 +42,7 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   // Fallback kalau key belum dipasang
   if (WEB3FORMS_KEY === 'PASTE_ACCESS_KEY_HERE') {
     const subject = `[Website] Kebutuhan: ${f.get('kebutuhan')} — dari ${f.get('nama')}`;
-    const body = `Nama: ${f.get('nama')}\nEmail: ${f.get('email')}\nKebutuhan: ${f.get('kebutuhan')}\n\nPesan:\n${f.get('pesan')}`;
+    const body = `Nama: ${f.get('nama')}\nEmail: ${f.get('email')}\nWhatsApp: ${f.get('wa') || '-'}\nKebutuhan: ${f.get('kebutuhan')}\n\nPesan:\n${f.get('pesan')}`;
     note.textContent = '(Mode demo) Membuka aplikasi email Anda...';
     window.location.href = `mailto:digitalgroup.admin@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     return;
@@ -58,8 +58,9 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
         subject: `[Website DGID] Kebutuhan: ${f.get('kebutuhan')} — dari ${f.get('nama')}`,
         from_name: f.get('nama'),
         email: f.get('email'),
-        message: f.get('pesan'),
+        message: `Nomor WhatsApp: ${f.get('wa') || '-'}\n\n${f.get('pesan')}`,
         kebutuhan: f.get('kebutuhan'),
+        whatsapp: f.get('wa') || '-',
       }),
     });
     const json = await res.json();
