@@ -31,13 +31,13 @@ const cio = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 counters.forEach(el => cio.observe(el));
 
-// Contact form -> WhatsApp / mailto fallback (tanpa backend)
+// Contact form -> Email ke alamat di bagian kontak (mailto, tanpa backend)
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const f = new FormData(e.target);
-  const text = `Halo Digital Group ID,%0A%0ANama: ${encodeURIComponent(f.get('nama'))}%0AEmail: ${encodeURIComponent(f.get('email'))}%0AKebutuhan: ${encodeURIComponent(f.get('kebutuhan'))}%0APesan: ${encodeURIComponent(f.get('pesan'))}`;
-  // Ganti nomor di bawah dengan nomor WhatsApp asli perusahaan
-  const waNumber = '6281200000000';
-  document.getElementById('formNote').textContent = 'Membuka WhatsApp... terima kasih, pesan Anda siap dikirim.';
-  window.open(`https://wa.me/${waNumber}?text=${text}`, '_blank');
+  const to = 'hello@digitalgroup.id'; // ← samakan dengan email di section Kontak
+  const subject = `[Website] Kebutuhan: ${f.get('kebutuhan')} — dari ${f.get('nama')}`;
+  const body = `Nama: ${f.get('nama')}\nEmail: ${f.get('email')}\nKebutuhan: ${f.get('kebutuhan')}\n\nPesan:\n${f.get('pesan')}`;
+  document.getElementById('formNote').textContent = 'Membuka aplikasi email Anda... periksa lalu tekan Kirim.';
+  window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
