@@ -35,7 +35,7 @@ counters.forEach(el => cio.observe(el));
 document.getElementById('contactForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const f = new FormData(e.target);
-  const to = 'hello@digitalgroup.id'; // ← samakan dengan email di section Kontak
+  const to = 'digitalgroup.admin@gmail.com'; // ← samakan dengan email di section Kontak
   const subject = `[Website] Kebutuhan: ${f.get('kebutuhan')} — dari ${f.get('nama')}`;
   const body = `Nama: ${f.get('nama')}\nEmail: ${f.get('email')}\nKebutuhan: ${f.get('kebutuhan')}\n\nPesan:\n${f.get('pesan')}`;
   document.getElementById('formNote').textContent = 'Membuka aplikasi email Anda... periksa lalu tekan Kirim.';
